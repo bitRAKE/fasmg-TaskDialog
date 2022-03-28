@@ -3,7 +3,7 @@ RBTN_WARNING		:= 0x101
 RBTN_ERROR		:= 0x102
 RBTN_INFORMATION	:= 0x103
 RBTN_SHIELD		:= 0x104
-RBTN_CUSTOM		:= 0x1FF ; TODO: add icon resource
+RBTN_CUSTOM		:= IDR_ICON ; use main icon
 
 align 16
 Icons_Sample:
@@ -43,9 +43,13 @@ Icons_Sample:
 	enter 48,0
 	label .hTDlg:8 at rbp-16
 	label .iid:8 at rbp-8
+	mov [.hTDlg],rcx
+	mov r9,r8
+	cmp r8,RBTN_SHIELD+1
+	jnc .OnRadio.custom
 	movzx r9,r8l
 	neg r9w ; convert to resource ID
-	mov [.hTDlg],rcx
+.OnRadio.custom:
 	mov [.iid],r9
 	SendMessageW rcx,TDM_UPDATE_ICON,TDIE_ICON_MAIN,r9
 	SendMessageW [.hTDlg],TDM_UPDATE_ICON,TDIE_ICON_FOOTER,[.iid]

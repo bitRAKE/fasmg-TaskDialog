@@ -151,9 +151,7 @@ WinMain:ENTRY $
 	rep stosq
 
 	call Main_Window
-
-	xor ecx,ecx
-	ExitProcess
+	ExitProcess 0
 	int3
 .end _winx.entry ; _winx.end? _end ; generate import section
 
@@ -197,9 +195,22 @@ end namespace
 section '.rsrc' resource data readable
 include 'macro\stringtable.inc'
 
+IDR_ICON := 0x1FF
+
 directory \
-	RT_STRING,strings,\
-	RT_MANIFEST,manifests
+	RT_ICON,	icons,\
+	RT_GROUP_ICON,	group_icons,\
+	RT_STRING,	strings,\
+	RT_MANIFEST,	manifests
+
+resource icons,\
+	1,LANG_NEUTRAL,icon_m48,\
+	2,LANG_NEUTRAL,icon_m32,\
+	3,LANG_NEUTRAL,icon_m24,\
+	4,LANG_NEUTRAL,icon_m16
+
+resource group_icons,\
+	IDR_ICON,LANG_NEUTRAL,main_icon
 
 resource strings,\
         1,LANG_NEUTRAL,string_table1
@@ -207,8 +218,14 @@ resource strings,\
 resource manifests,\
 	1,LANG_ENGLISH+SUBLANG_DEFAULT,manifest
 
+icon main_icon,\
+	icon_m48,'resource\dip_chip_48x48.ico',\
+	icon_m32,'resource\dip_chip_32x32.ico',\
+	icon_m24,'resource\dip_chip_24x24.ico',\
+	icon_m16,'resource\dip_chip_16x16.ico'
+
 stringtable string_table1,\ ; ids 00 - 0F
-	IDS_ZERO,	"bitRAKE"
+	IDS_ZERO,"bitRAKE"
 
 resdata manifest
 	file 'manifest.xml'
