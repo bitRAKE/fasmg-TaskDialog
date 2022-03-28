@@ -55,7 +55,7 @@ Counter_Sample:
 	enter 48,0
 	.hTDlg equ rbp-8
 	mov [.hTDlg],rcx
-	wvsprintfW ADDR buffer,<_T "%d">,ADDR m_counter
+	wvsprintfW ADDR buffer,<_T 9,"%d">,ADDR m_counter
 	SendMessageW [.hTDlg],TDM_SET_ELEMENT_TEXT,TDE_MAIN_INSTRUCTION,ADDR buffer
 	mov eax,S_FALSE ; do not close dialog (only for TDN_BUTTON_CLICKED)
 	leave

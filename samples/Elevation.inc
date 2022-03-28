@@ -13,6 +13,8 @@ Elevation_Required_Sample:
 
 	lea rax,<_T "Elevation Requied Sample">
 	mov [.cfg.pszWindowTitle],rax
+	lea rax,<_T "Just a button with a shield ...">
+	mov [.cfg.pszContent],rax
 
 	.btns TD_BUTTONS \
 		"Admin Stuff", BUTTON_ADMIN_STUFF
