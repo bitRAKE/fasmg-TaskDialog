@@ -40,7 +40,7 @@ Timer_Sample.OnButton: ; RCX:hWnd, RDX:TDN_BUTTON_CLICKED, R8:{control id}, R9:0
 	xor eax,eax			; S_OK, close dialog
 	retn
 @@:	mov rax,[rsp+40]		; .lpRefData ; .cfg.lpCallbackData
-	label .reset:4 at RAX+sizeof MyTD_Template
+	label .reset:4 at RAX + sizeof Timer_Sample.msg_vTable
 	mov dword [.reset],S_FALSE	; reset timer
 	mov eax,1			; don't close dialog
 	retn
@@ -69,7 +69,7 @@ Timer_Sample.OnTimer:
 ; 0 ; S_OK	; continue to advance timer
 ; 1 ; S_FALSE	; reset timer
 	mov rbx,[.lpRefData]
-	label .reset:4 at RBX+sizeof MyTD_Template
+	label .reset:4 at RBX + sizeof Timer_Sample.msg_vTable
 	mov eax,[.reset]
 	mov [.reset],S_OK
 	leave
