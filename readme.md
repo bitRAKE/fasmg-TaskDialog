@@ -1,5 +1,5 @@
 
-####TaskDialog - moving beyond the MessageBox.
+#### TaskDialog - moving beyond the MessageBox.
 
 This an exploration of the [TaskDialog][1] addition to Windows UI programming, and patterns in [fasmg][2].
 
