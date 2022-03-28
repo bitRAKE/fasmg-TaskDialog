@@ -132,7 +132,8 @@ WinMain:ENTRY $
 
 	; need to initialize MyTD_Template with application constant data
 	mov [MyTD_Template.cfg.cbSize],sizeof TASKDIALOGCONFIG
-	GetDesktopWindow
+	; GetDesktopWindow limits window frame! No TDF_CAN_BE_MINIMIZED!
+	xor eax,eax
 	mov [MyTD_Template.cfg.hwndParent],rax
 	GetModuleHandleW 0 ; hModule = hInstance = BaseAddress
 	mov [MyTD_Template.cfg.hInstance],rax
