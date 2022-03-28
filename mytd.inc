@@ -1,6 +1,6 @@
 ; My Task Dialog Wrapper:
 
-macro MY_TD ; above structure for stack
+macro MY_TD
 	.cfg TASKDIALOGCONFIG
 
 	.selectedButtonId	dd ?	; int
@@ -60,7 +60,7 @@ TaskDialog__Callback: ; HWND,UINT,WPARAM,LPARAM,LONG_PTR
 	jnc .fatal
 	jmp qword [rax+rdx*8]
 
-.fatal:	int3 ; not nice
+.fatal:	int3 ; TODO: not nice
 
 ; Presently, only two message respond to the return value:
 ;	TDN_BUTTON_CLICKED:
@@ -74,7 +74,6 @@ align 16
 	retn
 
 
-
 ; helper to create static button arrays for TaskDialog
 ; (works for regular buttons and radio type)
 ;	. resolves to unique array pointer
@@ -82,11 +81,13 @@ align 16
 struc TD_BUTTONS line&
 	local name
 	iterate <quoted,id>,line
+		;: array of TCHAR strings:
 		collect _CONST_
 			align sizeof.TCHAR
 			label name.%
 			TCHAR quoted,0
 		end collect
+		;: build array of TASKDIALOG_BUTTON:
 		if % = %%
 			. equ name
 			collect _CONST_
