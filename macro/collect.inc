@@ -1,27 +1,32 @@
-; for variations on this theme, see:
-; https://board.flatassembler.net/topic.php?p=221216#221216
+
+; https://board.flatassembler.net/topic.php?p=221774#221774
+
 define collections
 
-macro? collect? name*
+macro collect? name*
 	calminstruction name
 		local	tmp
-	reverse:
+	    reverse:
 		take	tmp, collections.name
 		jyes	reverse
-	execute:
+	    execute:
 		take	collections.name, tmp
 		jno	done
 		assemble collections.name
 		jump	execute
-	done:
+	    done:
 	end calminstruction
-	calminstruction ?! line&
-		match	=end? =collect?, line
+	calminstruction ? line&
+		match	/=collect?, line
 		jyes	close
 		take	collections.name, line
 		exit
-	close:
+	    close:
 		arrange line, =purge ?
 		assemble line
 	end calminstruction
+end macro
+
+macro end?.collect?!
+	/collect
 end macro

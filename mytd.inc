@@ -81,27 +81,26 @@ align 16
 ;	sizeof . is button items in array
 struc TD_BUTTONS line&
 	local name
+	struc name.struc
 	iterate <quoted,id>,line
 		;: array of TCHAR strings:
-		collect _CONST_
-			align sizeof.TCHAR
-			label name.%
-			TCHAR quoted,0
-		end collect
+		align sizeof.TCHAR
+		label name.%
+		TCHAR quoted,0
 		;: build array of TASKDIALOG_BUTTON:
 		if % = %%
 			. equ name
-			collect _CONST_
-				align 4
-				label name:%%
-			end collect
+			align 4
+			label name:%%
 			repeat %%
 				indx %
-				collect _CONST_
-					dd id
-					dq name.%
-				end collect
+				dd id
+				dq name.%
 			end repeat
 		end if
 	end iterate
+	end struc
+	collect _CONST_
+		. name.struc
+	end collect
 end struc
