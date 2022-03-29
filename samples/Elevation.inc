@@ -11,10 +11,8 @@ Elevation_Required_Sample:
 	enter .FRAME,0
 	INIT_MY_TD ; copy default structure
 
-	lea rax,<_T "Elevation Requied Sample">
-	mov [.cfg.pszWindowTitle],rax
-	lea rax,<_T "Just a button with a shield ...">
-	mov [.cfg.pszContent],rax
+	mov [.cfg.pszWindowTitle],<_R "Elevation Requied Sample">
+	mov [.cfg.pszContent],<_R "Just a button with a shield ...">
 
 	.btns TD_BUTTONS \
 		"Admin Stuff", BUTTON_ADMIN_STUFF

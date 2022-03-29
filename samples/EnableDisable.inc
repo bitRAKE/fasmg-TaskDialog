@@ -1,7 +1,7 @@
-BUTTON_ENABLE := 0x101
-BUTTON_DISABLE := 0x102
+BUTTON_ENABLE	:= 0x101
+BUTTON_DISABLE	:= 0x102
 
-RBUTTON_ABLE := 0x103
+RBUTTON_ABLE	:= 0x103
 
 align 16
 Enable_Disable_Sample:
@@ -14,9 +14,7 @@ Enable_Disable_Sample:
 	enter .FRAME,0
 	INIT_MY_TD ; copy default structure
 
-	lea rax,<_T "Enable/Disable Sample">
-	mov [.cfg.pszWindowTitle],rax
-
+	mov [.cfg.pszWindowTitle],<_R "Enable/Disable Sample">
 ;: create button array, let TaskDialog know:
 	.btns TD_BUTTONS \
 		"Enable", BUTTON_ENABLE,\

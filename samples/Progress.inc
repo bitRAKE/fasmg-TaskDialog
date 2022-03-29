@@ -9,8 +9,7 @@ Progress_Sample:
 	enter .FRAME,0
 	INIT_MY_TD ; copy default structure
 
-	lea rax,<_T "Progress Sample">
-	mov [.cfg.pszWindowTitle],rax
+	mov [.cfg.pszWindowTitle],<_R "Progress Sample">
 	or [.cfg.dwFlags],TDF_SHOW_PROGRESS_BAR or TDF_CALLBACK_TIMER
 	lea rax,[.OnTimer]
 	mov [.msg.OnTimer],rax

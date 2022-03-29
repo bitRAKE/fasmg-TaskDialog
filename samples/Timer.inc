@@ -16,8 +16,7 @@ Timer_Sample:
 	INIT_MY_TD		; copy default structure
 	mov [.reset],S_OK	; initialize runtime state
 
-	lea rax,<_T "Timer Sample">
-	mov [.cfg.pszWindowTitle],rax
+	mov [.cfg.pszWindowTitle],<_R "Timer Sample">
 	or [.cfg.dwFlags],TDF_CALLBACK_TIMER
 
 	.btns TD_BUTTONS \

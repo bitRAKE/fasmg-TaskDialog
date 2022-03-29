@@ -18,9 +18,7 @@ Counter_Sample:
 	end virtual
 	enter .FRAME,0
 	INIT_MY_TD ; copy default structure
-
-	lea rax,<_T "Counter Sample">
-	mov [.cfg.pszWindowTitle],rax
+	mov [.cfg.pszWindowTitle],<_R "Counter Sample">
 ;: create button array, let TaskDialog know:
 	.btns TD_BUTTONS \
 		"Increment", BUTTON_INCREMENT,\

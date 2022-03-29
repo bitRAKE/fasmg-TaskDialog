@@ -9,8 +9,7 @@ Common_Buttons_Sample:
 	enter .FRAME,0
 	INIT_MY_TD ; copy default structure
 
-	lea rax,<_T "Common Buttons Sample">
-	mov [.cfg.pszWindowTitle],rax
+	mov [.cfg.pszWindowTitle],<_R "Common Buttons Sample">
 	mov [.cfg.dwCommonButtons],TDCBF_OK_BUTTON or TDCBF_YES_BUTTON or TDCBF_NO_BUTTON or TDCBF_CANCEL_BUTTON or TDCBF_RETRY_BUTTON or TDCBF_CLOSE_BUTTON
 
 	lea rax,[.OnButton]
@@ -27,9 +26,9 @@ Common_Buttons_Sample:
 	lea r9,[.table]
 	cmp r8d,.LAST_COMMON
 	jnc .id_unknown
-	lea r9,[r9+r8*8]
+	lea r9,[r9+r8*2]
 .id_unknown:
-	mov r9,[r9]
+	movzx r9,word [r9]
 	SendMessageW rcx,TDM_SET_ELEMENT_TEXT,TDE_MAIN_INSTRUCTION,r9
 	mov eax,S_FALSE ; do not close dialog
 	leave
@@ -38,21 +37,16 @@ Common_Buttons_Sample:
 	xor eax,eax
 	retn
 
-
-	align sizeof.TCHAR
-	.unknown TCHAR "Unknown",0
-	iterate id, <>,OK,Cancel,<>,Retry,<>,Yes,No,Close
-		match ,id
-			.% equ .unknown
-		else
-			.% TCHAR `id," clicked",0
-		end match
-		if % = %%
-			align 8
-			label .table:8
-			repeat %%
-				dq .%
-			end repeat
+	iterate id, <>,Ok,Cancel,<>,Retry,<>,Yes,No,Close
+		if % = 1
+			align 2
+			label .table:2
 			.LAST_COMMON := %%
 		end if
+		match ,id
+			.% RSTRING "Unknown"
+		else
+			.% RSTRING `id," clicked",0
+		end match
+		dw .%
 	end iterate

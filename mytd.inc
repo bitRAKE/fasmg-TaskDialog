@@ -83,21 +83,14 @@ struc TD_BUTTONS line&
 	local name
 	struc name.struc
 	iterate <quoted,id>,line
-		;: array of TCHAR strings:
-		align sizeof.TCHAR
-		label name.%
-		TCHAR quoted,0
-		;: build array of TASKDIALOG_BUTTON:
-		if % = %%
-			. equ name
+		if % = 1
 			align 4
 			label name:%%
-			repeat %%
-				indx %
-				dd id
-				dq name.%
-			end repeat
+			. equ name
 		end if
+		name.sid RSTRING quoted ; id.sid to expose
+		dd id
+		dq name.sid
 	end iterate
 	end struc
 	collect _CONST_

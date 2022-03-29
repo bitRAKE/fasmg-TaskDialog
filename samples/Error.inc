@@ -12,16 +12,11 @@ Error_Sample:
 	enter .FRAME,0
 	INIT_MY_TD ; copy default structure
 
-	lea rax,<_T "Error Sample (page 1)">
-	mov [.cfg.pszWindowTitle],rax
-	lea rax,<_T "An unexpected error occured. Please send feedback now!">
-	mov [.cfg.pszMainInstruction],rax
-	lea rax,<_T "Don't ask me again">
-	mov [.cfg.pszVerificationText],rax
-	lea rax,<_T "Error message goes here...">
-	mov [.cfg.pszContent],rax
-	lea rax,<_T "Stack trace goes here...">
-	mov [.cfg.pszExpandedInformation],rax
+	mov [.cfg.pszWindowTitle],<_R "Error Sample (page 1)">
+	mov [.cfg.pszMainInstruction],<_R "An unexpected error occured. Please send feedback now!">
+	mov [.cfg.pszVerificationText],<_R "Don't ask me again">
+	mov [.cfg.pszContent],<_R "Error message goes here...">
+	mov [.cfg.pszExpandedInformation],<_R "Stack trace goes here...">
 	or [.cfg.dwFlags],TDF_USE_COMMAND_LINKS or TDF_VERIFICATION_FLAG_CHECKED or TDF_EXPAND_FOOTER_AREA
 
 	.btns TD_BUTTONS \
@@ -46,10 +41,8 @@ Error_Sample:
 SendFeedbackDialog:
 	INIT_MY_TD ; copy default structure
 
-	lea rax,<_T "Error Sample (page 2)">
-	mov [.cfg.pszWindowTitle],rax
-	lea rax,<_T "Copying your passwords  ;-)">
-	mov [.cfg.pszContent],rax
+	mov [.cfg.pszWindowTitle],<_R "Error Sample (page 2)">
+	mov [.cfg.pszContent],<_R "Copying your passwords  ;-)">
 	or [.cfg.dwFlags],TDF_SHOW_PROGRESS_BAR or TDF_CALLBACK_TIMER
 
 	lea rax,[.OnTimer]
@@ -92,9 +85,9 @@ SendFeedbackDialog:
 	jmp @F
 .finished:
 	SendMessageW [.hTDlg],TDM_SET_ELEMENT_TEXT,TDE_MAIN_INSTRUCTION,\
-		<_T "Thanks for the feedback!">
+		<_R "Thanks for the feedback!">
 	SendMessageW [.hTDlg],TDM_SET_ELEMENT_TEXT,TDE_CONTENT,\
-		<_T "Our developers will get right on that...">
+		<_R "Our developers will get right on that...">
 	mov [.ppos],.MaxRange
 @@:	SendMessageW [.hTDlg],TDM_SET_PROGRESS_BAR_POS,[.ppos],0
 	xor eax,eax ; S_OK ; continue to advance timer

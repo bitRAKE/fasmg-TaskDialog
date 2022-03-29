@@ -19,8 +19,7 @@ Progress_Effects_Sample:
 	mov [.marquee],0
 	mov [.state],(((3 shl 11) + 2) shl 11) + 1
 
-	lea rax,<_T "Progress Effects Sample">
-	mov [.cfg.pszWindowTitle],rax
+	mov [.cfg.pszWindowTitle],<_R "Progress Effects Sample">
 	or [.cfg.dwFlags],TDF_SHOW_PROGRESS_BAR
 	.btns TD_BUTTONS \
 		"Cycle State", BUTTON_STATE,\

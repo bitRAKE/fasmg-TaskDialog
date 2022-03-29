@@ -104,13 +104,13 @@ iterate reg, rcx,rdx,r8,r9,rax,r10,r11
 			mov [.P#index],reg
 		end if
 ; TODO: not implemented
-;	else match =_R any,arg
-;		word_id RSTRING any
-;		if index < 5
-;			mov reg32.reg,word_id
-;		else
-;			mov [.P#index],word_id
-;		end if
+	else match =_R any,arg
+		word_id RSTRING any
+		if index < 5
+			mov reg32.reg,word_id
+		else
+			mov [.P#index],word_id
+		end if
 	else
 ; REG===REG	ignore nops
 ; immediate:
@@ -207,6 +207,20 @@ macro lea? line&
 		lea any,[name]
 	else
 		lea line
+	end match
+end macro
+
+macro mov? line&
+	match any=,=<values=>,line
+		local word_id
+		match =_R V,values
+			word_id RSTRING V
+		else
+			err ; unsupported type
+		end match
+		mov any,word_id
+	else
+		mov line
 	end match
 end macro
 

@@ -26,8 +26,7 @@ Update_Text_Sample:
 		pszCollapsedControlText,"Collapsed control text",\	;*
 		pszFooter,		"Footer"
 
-		lea rax,<_T quoted>
-		mov [.cfg.field],rax
+		mov [.cfg.field],<_R quoted>
 	end iterate
 
 	.btns TD_BUTTONS \
@@ -55,10 +54,10 @@ Update_Text_Sample:
 	cmp r8,0x104
 	jnc .OnButton.title
 	movzx r8,r8l
-	cmp r8,4
+	cmp r8,sizeof .Table
 	jnc @F
 	lea r9,[.Table]
-	mov r9,[r9+r8*8]
+	movzx r9,word [r9+r8*2]
 	SendMessageW rcx,TDM_SET_ELEMENT_TEXT,r8,r9
 	jmp @F
 .OnButton.title:
@@ -67,19 +66,15 @@ Update_Text_Sample:
 	leave
 	retn
 
-	align sizeof.TCHAR
 	iterate quoted,\
 		"Content (updated)",\
 		"Expanded information (updated)",\
 		"Footer (updated)",\
 		"Main instruction (updated)"
 		if % = 1
-			repeat %%
-				indx %
-				.%.string TCHAR quoted,0
-			end repeat
-			align 8
-			.Table:
+			align 2
+			label .Table:%%
 		end if
-		dq .%.string
+		.% RSTRING quoted
+		dw .%
 	end iterate

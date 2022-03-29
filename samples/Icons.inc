@@ -22,14 +22,10 @@ Icons_Sample:
 	enter .FRAME,0
 	INIT_MY_TD ; copy default structure
 
-	lea rax,<_T "Icons Sample">
-	mov [.cfg.pszWindowTitle],rax
-	lea rax,<_T "Main Instruction">
-	mov [.cfg.pszMainInstruction],rax
-	lea rax,<_T "Security icons are undocumented.">
-	mov [.cfg.pszContent],rax
-	lea rax,<_T "Footer">
-	mov [.cfg.pszFooter],rax
+	mov [.cfg.pszWindowTitle],<_R "Icons Sample">
+	mov [.cfg.pszMainInstruction],<_R "Main Instruction">
+	mov [.cfg.pszContent],<_R "Security icons are undocumented.">
+	mov [.cfg.pszFooter],<_R "Footer">
 	.rbtns TD_BUTTONS \
 		"None",		RBTN_NONE,\
 		"Warning",	RBTN_WARNING,\
@@ -63,7 +59,6 @@ Icons_Sample:
 	jnc .OnRadio.custom
 	movzx r9,r8l
 	neg r9w ; convert to resource ID
-;	sub r9w,4
 .OnRadio.custom:
 	mov [.iid],r9
 	SendMessageW rcx,TDM_UPDATE_ICON,TDIE_ICON_MAIN,r9

@@ -1,6 +1,10 @@
 include 'mywin.inc'
 include 'mytd.inc'
 
+include 'macro\rstrings.inc'
+dummy RSTRING ; zero id
+
+
 ; this is mainly to counter my problems naming stuff
 iterate <_file,function,b_id>,\
 	"CommonButton",		Common_Buttons,		COMMONBUTTONS,\
@@ -41,14 +45,11 @@ Main_Window:
 	enter .FRAME,0
 	INIT_MY_TD ; copy default structure
 
-	lea rax,<_T "TaskDialog Samples (originally by Kenny Kerr)">
-	mov [.cfg.pszWindowTitle],rax
-	lea rax,<_T "Pick a sample to try:">
-	mov [.cfg.pszMainInstruction],rax
-	lea rax,<_T "Use dialog close button, ESC or Alt-F4 keys to exit a sample.">
-	mov [.cfg.pszContent],rax
-	lea rax,<_T 'x86-64 by <a href="https://github.com/bitRAKE">bitRAKE</a> with flat assembler g.'>
-	mov [.cfg.pszFooter],rax
+
+	mov [.cfg.pszWindowTitle],<_R "TaskDialog Samples (originally by Kenny Kerr)">
+	mov [.cfg.pszMainInstruction],<_R "Pick a sample to try:">
+	mov [.cfg.pszContent],<_R "Use dialog close button, ESC or Alt-F4 keys to exit a sample.">
+	mov [.cfg.pszFooter],<_R 'x86-64 by <a href="https://github.com/bitRAKE">bitRAKE</a> with flat assembler g.'>
 	or [.cfg.dwFlags],TDF_USE_COMMAND_LINKS or TDF_CAN_BE_MINIMIZED or TDF_ENABLE_HYPERLINKS
 
 ;: create button array, let TaskDialog know:
@@ -192,8 +193,6 @@ end namespace
 
 
 section '.rsrc' resource data readable
-include 'macro\stringtable.inc'
-
 IDR_ICON := 0x1FF
 
 directory \
@@ -211,8 +210,7 @@ resource icons,\
 resource group_icons,\
 	IDR_ICON,LANG_NEUTRAL,main_icon
 
-resource strings,\
-        1,LANG_NEUTRAL,string_table1
+resource_RSTRINGS strings ; generate tables
 
 resource manifests,\
 	1,LANG_ENGLISH+SUBLANG_DEFAULT,manifest
@@ -222,9 +220,6 @@ icon main_icon,\
 	icon_m32,'resource\dip_chip_32x32.ico',\
 	icon_m24,'resource\dip_chip_24x24.ico',\
 	icon_m16,'resource\dip_chip_16x16.ico'
-
-stringtable string_table1,\ ; ids 00 - 0F
-	IDS_ZERO,"bitRAKE"
 
 resdata manifest
 	file 'manifest.xml'
