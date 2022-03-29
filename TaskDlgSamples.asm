@@ -63,7 +63,6 @@ Main_Window:
 		"Progress Effects Sample",	BUTTON_PROGRESSEFFECTS,\
 		"Timer Sample",			BUTTON_TIMER,\
 		"Update Text Sample",		BUTTON_UPDATETEXT
-
 	lea rax,[.btns]
 	mov [.cfg.pButtons],rax
 	mov [.cfg.cButtons],sizeof .btns
@@ -142,7 +141,6 @@ WinMain:ENTRY $
 		TDF_POSITION_RELATIVE_TO_WINDOW \
 		\; always allow ESC, Alt-F4, Close Button
 		or TDF_ALLOW_DIALOG_CANCELLATION
-
 	lea rax,[TaskDialog__Callback] ; universal callback
 	mov [MyTD_Template.cfg.pfCallback],rax
 	; fill notification table with default handling

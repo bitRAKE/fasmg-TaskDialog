@@ -52,9 +52,7 @@ macro win64abi api*,line&
 	call [api]
 end macro
 
-; don't try to overload x86 instructions
-; irregular types should be built-up prior
-; instead of supporting ( SIGNED {size}? [] --> MOVSX ) just do the MOVSX
+; don't try to overload x86 instructions, irregular types should be built-up prior (i.e. instead of supporting ( SIGNED {size}? [] --> MOVSX ) just do the MOVSX)
 macro win64abi_parm index*,arg&
 local llabl,word_id,dest
 iterate reg, rcx,rdx,r8,r9,rax,r10,r11
@@ -82,7 +80,7 @@ iterate reg, rcx,rdx,r8,r9,rax,r10,r11
 			mov [.P#index],reg
 		end if
 	else match =CONST? any,arg
-		; TODO: batch into granulatity group
+; TODO: batch into granulatity group
 		collect _CONST_
 			label llabl
 			any
@@ -105,13 +103,14 @@ iterate reg, rcx,rdx,r8,r9,rax,r10,r11
 			lea reg,[llabl]
 			mov [.P#index],reg
 		end if
-	else match =_R any,arg
-		word_id RSTRING any
-		if index < 5
-			mov reg32.reg,word_id
-		else
-			mov [.P#index],word_id
-		end if
+; TODO: not implemented
+;	else match =_R any,arg
+;		word_id RSTRING any
+;		if index < 5
+;			mov reg32.reg,word_id
+;		else
+;			mov [.P#index],word_id
+;		end if
 	else
 ; REG===REG	ignore nops
 ; immediate:
@@ -163,10 +162,8 @@ iterate reg, rcx,rdx,r8,r9,rax,r10,r11
 					mov [.P#index],arg
 				end if
 			else ; only use proxy in extreme case
-				if index < 5
-					mov reg,arg
-				else
-					mov reg,arg
+				mov reg,arg
+				if index > 4
 					mov [.P#index],reg
 				end if
 			end if
@@ -177,7 +174,7 @@ end iterate
 end macro
 
 
-; this version factors out variable terms in address space
+; this version factors out variable terms in address space, and assumes base is infinitely alignable (use wisely)
 macro _align? value*,something:db ?
 	while ($-$$) and (value-1)
 		something
