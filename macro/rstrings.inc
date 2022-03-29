@@ -104,7 +104,7 @@ postpone
 virtual RSTRING.buffer
 if $ & ~ defined RSTRING.where
 display 'Warning: No location for defined resource string data has been specified.',13,10
-display 'Use "RSTRING.here {label}" macro in the intended location.',13,10
+display 'Use "resource_RSTRINGS {label}" macro in the intended location.',13,10
 end if
 end virtual
 end postpone

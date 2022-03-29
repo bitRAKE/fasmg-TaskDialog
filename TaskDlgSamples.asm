@@ -45,7 +45,6 @@ Main_Window:
 	enter .FRAME,0
 	INIT_MY_TD ; copy default structure
 
-
 	mov [.cfg.pszWindowTitle],<_R "TaskDialog Samples (originally by Kenny Kerr)">
 	mov [.cfg.pszMainInstruction],<_R "Pick a sample to try:">
 	mov [.cfg.pszContent],<_R "Use dialog close button, ESC or Alt-F4 keys to exit a sample.">
