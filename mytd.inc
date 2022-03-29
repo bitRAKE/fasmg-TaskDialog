@@ -51,7 +51,7 @@ align 64
 ; universal callback processing (minimal environmental impact)
 TaskDialog__Callback: ; HWND,UINT,WPARAM,LPARAM,LONG_PTR
 	virtual at RSP
-		.RET		dq ?
+				dq ? ; RET
 				rq 4
 		.lpRefData	dq ?
 	end virtual
@@ -62,7 +62,7 @@ TaskDialog__Callback: ; HWND,UINT,WPARAM,LPARAM,LONG_PTR
 
 .fatal:	int3 ; TODO: not nice
 
-; Presently, only two message respond to the return value:
+; Presently, only two notifications respond to the return value:
 ;	TDN_BUTTON_CLICKED:
 ;		S_OK		close dialog and return button id
 ;		S_FALSE		continue dialog processing
@@ -74,7 +74,8 @@ align 16
 	retn
 
 
-; helper to create static button arrays for TaskDialog
+
+; Helper to create static button arrays for TaskDialogIndirect
 ; (works for regular buttons and radio type)
 ;	. resolves to unique array pointer
 ;	sizeof . is button items in array

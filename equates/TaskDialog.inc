@@ -13,6 +13,12 @@ TD_WARNING_ICON     := 0xFFFF
 TD_ERROR_ICON       := 0xFFFE
 TD_INFORMATION_ICON := 0xFFFD
 TD_SHIELD_ICON      := 0xFFFC
+;	undocumented
+;:= 0xFFFB security blue shield
+;:= 0xFFFA security yellow ! shield
+;:= 0xFFF9 security red X shield
+;:= 0xFFF8 security green check shield
+;:= 0xFFF7 security gray shield
 
 ; TASKDIALOG_MESSAGES
 TDM_NAVIGATE_PAGE			:= WM_USER + 101 ;

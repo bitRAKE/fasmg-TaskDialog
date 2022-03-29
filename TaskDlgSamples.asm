@@ -55,7 +55,7 @@ Main_Window:
 	.btns TD_BUTTONS \
 		"Common Buttons Sample",	BUTTON_COMMONBUTTONS,\
 		"Counter Sample",		BUTTON_COUNTER,\
-		"Elevation Requied Sample",	BUTTON_ELEVATIONREQUIRED,\
+		"Elevation Required Sample",	BUTTON_ELEVATIONREQUIRED,\
 		"Enable/Disable Sample",	BUTTON_ENABLEDISABLE,\
 		"Error Sample",			BUTTON_ERROR,\
 		"Icons Sample",			BUTTON_ICONS,\
