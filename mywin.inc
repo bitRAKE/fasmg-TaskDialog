@@ -182,7 +182,8 @@ macro _align? value*,something:db ?
 end macro
 
 macro lea? line&
-	match any=,=<values=>,line
+; NOTE: spaces needed for possible line breaks! Use most general configuration!
+	match any =, =< values =>,line
 		local name
 		match =_T V,values
 			collect _CONST_
@@ -211,14 +212,20 @@ macro lea? line&
 end macro
 
 macro mov? line&
-	match any=,=<values=>,line
+; NOTE: spaces needed for possible line breaks! Use most general configuration!
+	match any =, =< values =>,line
 		local word_id
 		match =_R V,values
 			word_id RSTRING V
 		else
 			err ; unsupported type
 		end match
-		mov any,word_id
+		if word_id < $80
+			push word_id
+			pop any
+		else
+			mov any,word_id
+		end if
 	else
 		mov line
 	end match

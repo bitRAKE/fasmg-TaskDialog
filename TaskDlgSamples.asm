@@ -45,10 +45,14 @@ Main_Window:
 	enter .FRAME,0
 	INIT_MY_TD ; copy default structure
 
-	mov [.cfg.pszWindowTitle],<_R "TaskDialog Samples (originally by Kenny Kerr)">
-	mov [.cfg.pszMainInstruction],<_R "Pick a sample to try:">
-	mov [.cfg.pszContent],<_R "Use dialog close button, ESC or Alt-F4 keys to exit a sample.">
-	mov [.cfg.pszFooter],<_R 'x86-64 by <a href="https://github.com/bitRAKE">bitRAKE</a> with flat assembler g.'>
+	mov [.cfg.pszWindowTitle],\
+		<_R "TaskDialog Samples (originally by Kenny Kerr)">
+	mov [.cfg.pszMainInstruction],\
+		<_R "Pick a sample to try:">
+	mov [.cfg.pszContent],\
+		<_R "Use dialog close button, ESC or Alt-F4 keys to exit a sample.">
+	mov [.cfg.pszFooter],\
+		<_R 'x86-64 by <a href="https://github.com/bitRAKE">bitRAKE</a> with flat assembler g.'>
 	or [.cfg.dwFlags],TDF_USE_COMMAND_LINKS or TDF_CAN_BE_MINIMIZED or TDF_ENABLE_HYPERLINKS
 
 ;: create button array, let TaskDialog know:
