@@ -45,7 +45,7 @@ Icons_Sample:
 
 	lea rax,[.OnRadio]
 	mov [.msg.OnRadio],rax
-	TaskDialogIndirect ADDR .cfg,ADDR .selectedButtonId,ADDR .selectedRadioButtonId,ADDR .verificationChecked
+	TaskDialogIndirect ADDR .cfg,0,0,0
 	leave
 	retn
 

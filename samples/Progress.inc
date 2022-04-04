@@ -15,7 +15,7 @@ Progress_Sample:
 	mov [.msg.OnTimer],rax
 	lea rax,[.OnConstructed]
 	mov [.msg.OnConstructed],rax
-	TaskDialogIndirect ADDR .cfg,ADDR .selectedButtonId,ADDR .selectedRadioButtonId,ADDR .verificationChecked
+	TaskDialogIndirect ADDR .cfg,0,0,0
 	leave
 	retn
 

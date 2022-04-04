@@ -5,6 +5,9 @@ include 'macro\collect.inc'
 
 include 'equates\TaskDialog.inc'
 
+include 'macro\rstrings.inc'
+?dummy RSTRING ; zero id
+
 S_FALSE := 1 ; because TRUE/FALSE is so 1900
 S_OK := 0
 
@@ -61,10 +64,6 @@ iterate reg, rcx,rdx,r8,r9,rax,r10,r11
 	else
 		indx 5 + ((index-4) mod (%%-4))
 	end if
-; mem->mem	proxy move
-; ADDR?		indirection
-; CONST?	indirection & instantiation
-; _T/_R		{lots of forms}
 	match [any],arg
 		if index < 5
 			mov reg,[any]
@@ -112,16 +111,6 @@ iterate reg, rcx,rdx,r8,r9,rax,r10,r11
 			mov [.P#index],word_id
 		end if
 	else
-; REG===REG	ignore nops
-; immediate:
-;	..FFFFFF FFFF	or [mem],-1
-;	  ..8000 0000
-;	       ..8000
-;	         ..80	push/pop
-;	            0	xor reg,reg / and [mem],0
-;	         ..7F	push/pop
-;	       ..7FFF
-;	  ..7FFF FFFF
 		x86.parse_operand@src arg
 		if @src.type = 'reg'
 			if index < 5

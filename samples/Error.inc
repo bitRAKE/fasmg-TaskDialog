@@ -28,7 +28,7 @@ Error_Sample:
 
 	lea rax,[.OnButton]
 	mov [.msg.OnButton],rax
-	TaskDialogIndirect ADDR .cfg,ADDR .selectedButtonId,ADDR .selectedRadioButtonId,ADDR .verificationChecked
+	TaskDialogIndirect ADDR .cfg,0,0,ADDR .verificationChecked
 	leave
 	retn
 

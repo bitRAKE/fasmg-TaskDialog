@@ -1,10 +1,6 @@
 include 'mywin.inc'
 include 'mytd.inc'
 
-include 'macro\rstrings.inc'
-dummy RSTRING ; zero id
-
-
 ; this is mainly to counter my problems naming stuff
 iterate <_file,function,b_id>,\
 	"CommonButton",		Common_Buttons,		COMMONBUTTONS,\
