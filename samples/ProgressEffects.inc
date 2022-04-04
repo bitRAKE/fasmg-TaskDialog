@@ -112,7 +112,7 @@ ToggleMode:
 	shl eax,4
 	add r8,rax
 
-	lea r9,<_A "False",0,"True">
+	lea r9,<_A "False",0,"True (only togglable in Normal state)">
 	imul eax,[.marquee],6
 	add r9,rax
 
