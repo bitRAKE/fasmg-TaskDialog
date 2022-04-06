@@ -221,3 +221,13 @@ macro mov? line&
 end macro
 
 section '.text' code readable executable
+
+postpone
+	section '.reloc' fixups data readable discardable
+	; zero length fixup directory is an invalid PE on some versions of windows
+	if PE.NUMBER_OF_RELOCATIONS = 0
+		; fixups are DATA_DIRECTORY 5, clear RVA if no relocations
+		store 0:dword at PE:RvaAndSizes.Rva + 5*RvaAndSizes.ENTRY_LENGTH
+		display 10,'fyi: relocation data was not needed'
+	end if
+end postpone

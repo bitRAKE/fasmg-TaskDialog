@@ -24,9 +24,9 @@ Common_Buttons_Sample:
 	jz .Cancel
 	enter 32,0
 	lea r9,[.table]
-	cmp r8d,.LAST_COMMON
+	cmp r8d,sizeof .table
 	jnc .id_unknown
-	lea r9,[r9+r8*2]
+	lea r9,[r9+r8*2] ; resource id words
 .id_unknown:
 	movzx r9,word [r9]
 	SendMessageW rcx,TDM_SET_ELEMENT_TEXT,TDE_MAIN_INSTRUCTION,r9
@@ -37,11 +37,12 @@ Common_Buttons_Sample:
 	xor eax,eax
 	retn
 
+	; note: Cancel doesn't update as that code is used to exit dialog.
 	iterate id, <>,Ok,Cancel,<>,Retry,<>,Yes,No,Close
 		if % = 1
+			assert id+0 = 0 ; code requires unknown at zero offset
 			align 2
-			label .table:2
-			.LAST_COMMON := %%
+			label .table:%%
 		end if
 		match ,id
 			.% RSTRING "Unknown"

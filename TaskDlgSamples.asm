@@ -223,5 +223,3 @@ icon main_icon,\
 resdata manifest
 	file 'manifest.xml'
 endres
-
-section '.reloc' fixups data readable discardable
