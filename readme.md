@@ -8,11 +8,13 @@ This an exploration of the [TaskDialog][1] addition to Windows UI programming, a
 Often lines of code in assembly are comparable given the right model. In fasmg we can construct domain models fitting a large array of problems.
 
 
-<p align="center">
+- [ ] #4
+- [X] https://github.com/bitRAKE/fasmg-TaskDialog/issues/3
+- [X] https://github.com/bitRAKE/fasmg-TaskDialog/issues/2
+- [X] https://github.com/bitRAKE/fasmg-TaskDialog/issues/1
+- [ ] Add delight to the experience when all tasks are complete :tada:
 
 ![GitHub repo size][6] ![GitHub code size in bytes][5]
-
-</p>
 
 
 [1]: https://docs.microsoft.com/en-us/windows/win32/controls/task-dialogs-overview
