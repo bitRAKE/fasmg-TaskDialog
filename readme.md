@@ -9,7 +9,9 @@ Often lines of code in assembly are comparable given the right model. In fasmg w
 
 
 <p align="center">
+
 ![GitHub repo size][6] ![GitHub code size in bytes][5]
+
 </p>
 
 
