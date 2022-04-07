@@ -1,4 +1,6 @@
 include 'mywin.inc'
+
+include 'equates\TaskDialog.inc'
 include 'mytd.inc'
 
 ; this is mainly to counter my problems naming stuff

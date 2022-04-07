@@ -3,8 +3,6 @@ include 'win64wxp.inc'
 include 'encoding\utf8.inc'
 include 'macro\collect.inc'
 
-include 'equates\TaskDialog.inc'
-
 include 'macro\rstrings.inc'
 ?dummy RSTRING ; zero id
 
@@ -45,6 +43,8 @@ macro import? name,funs&
 	end match
 end macro
 
+; TODO: doing something like "ExitProcess,0" produces a strange error - need to catch that to make the error very verbose?
+
 macro win64abi api*,line&
 	iterate P,line
 		repeat 1,I:%%-%+1
@@ -53,6 +53,16 @@ macro win64abi api*,line&
 		end repeat
 	end iterate
 	call [api]
+end macro
+
+macro call? function,line&
+	iterate P,line
+		repeat 1,I:%%-%+1
+		indx I
+		win64abi_parm I,P
+		end repeat
+	end iterate
+	call function
 end macro
 
 ; don't try to overload x86 instructions, irregular types should be built-up prior (i.e. instead of supporting ( SIGNED {size}? [] --> MOVSX ) just do the MOVSX)
@@ -221,13 +231,12 @@ macro mov? line&
 end macro
 
 section '.text' code readable executable
-
 postpone
 	section '.reloc' fixups data readable discardable
 	; zero length fixup directory is an invalid PE on some versions of windows
 	if PE.NUMBER_OF_RELOCATIONS = 0
 		; fixups are DATA_DIRECTORY 5, clear RVA if no relocations
-		store 0:dword at PE:RvaAndSizes.Rva + 5*RvaAndSizes.ENTRY_LENGTH
+		store 0:dword at PE:PE.RvaAndSizes.Rva + 5*PE.RvaAndSizes.ENTRY_LENGTH
 		display 10,'fyi: relocation data was not needed'
 	end if
 end postpone
