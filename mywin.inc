@@ -1,10 +1,10 @@
-format PE64 GUI 5.0 at 0x1234_56780000
 include 'win64wxp.inc'
 include 'encoding\utf8.inc'
 include 'macro\collect.inc'
 
 include 'macro\rstrings.inc'
-?dummy RSTRING ; zero id
+dummy RSTRING ; zero id
+
 
 S_FALSE := 1 ; because TRUE/FALSE is so 1900
 S_OK := 0
@@ -233,10 +233,12 @@ end macro
 section '.text' code readable executable
 postpone
 	section '.reloc' fixups data readable discardable
-	; zero length fixup directory is an invalid PE on some versions of windows
-	if PE.NUMBER_OF_RELOCATIONS = 0
-		; fixups are DATA_DIRECTORY 5, clear RVA if no relocations
-		store 0:dword at PE:PE.RvaAndSizes.Rva + 5*PE.RvaAndSizes.ENTRY_LENGTH
-		display 10,'fyi: relocation data was not needed'
+	if $=$$
+		dd 0,8 ; if there are no fixups, generate dummy entry
+		display 10,9,"No relocations needed."
+	else
+		repeat 1,D:PE.NUMBER_OF_RELOCATIONS
+			display 10,9,`D,' relocations needed.'
+		end repeat
 	end if
 end postpone

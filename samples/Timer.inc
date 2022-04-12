@@ -6,7 +6,7 @@ Timer_Sample:
 		rq 4
 		MY_TD
 
-		; runtime state variables
+		; dialog-time state variables
 		.reset dd ?
 
 		_align 16
@@ -14,7 +14,7 @@ Timer_Sample:
 	end virtual
 	enter .FRAME,0
 	INIT_MY_TD		; copy default structure
-	mov [.reset],S_OK	; initialize runtime state
+	mov [.reset],S_OK	; initialize dialog-time state
 
 	mov [.cfg.pszWindowTitle],<_R "Timer Sample">
 	or [.cfg.dwFlags],TDF_CALLBACK_TIMER
@@ -38,9 +38,10 @@ Timer_Sample.OnButton: ; RCX:hWnd, RDX:TDN_BUTTON_CLICKED, R8:{control id}, R9:0
 	jz @F
 	xor eax,eax			; S_OK, close dialog
 	retn
-@@:	mov rax,[rsp+40]		; .lpRefData ; .cfg.lpCallbackData
+@@:; notification dispatcher in callback function loads RAX with this value
+;	mov rax,[rsp+40]		; .lpRefData ; .cfg.lpCallbackData
 	label .reset:4 at RAX + sizeof Timer_Sample.msg_vTable
-	mov dword [.reset],S_FALSE	; reset timer
+	mov dword [.reset],S_FALSE	; reset timer, after next update
 	mov eax,1			; don't close dialog
 	retn
 

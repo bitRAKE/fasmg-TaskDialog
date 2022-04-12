@@ -7,7 +7,7 @@ Progress_Effects_Sample:
 		rq 4
 		MY_TD
 
-		;: runtime state variables:
+		;: dialog-time state variables:
 		.marquee	dd ?
 		.state		dd ?
 
@@ -92,6 +92,7 @@ ToggleMode:
 	end virtual
 	push rbx
 	enter .FRAME,0
+	; verbosely get dialog-time state, but RAX already has this pointer!
 	mov rbx,[.lpRefData]
 	virtual at RBX + sizeof Progress_Effects_Sample.msg_vTable
 		.marquee	dd ?

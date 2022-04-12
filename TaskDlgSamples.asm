@@ -1,7 +1,10 @@
+format PE64 GUI 5.0 at 0x1234_56780000
 include 'mywin.inc'
 
 include 'equates\TaskDialog.inc'
 include 'mytd.inc'
+
+;include '..\..\utility\listing.inc'
 
 ; this is mainly to counter my problems naming stuff
 iterate <_file,function,b_id>,\
@@ -104,7 +107,7 @@ Main_Window:
 	jnz .not_ours
 	cmp edx,sizeof .Table
 	jnc .not_ours
-;	:warning: no sample function uses their shadow space
+;	:warning: no *_Sample function uses their shadow space
 	push S_FALSE ; do not close dialog
 	call qword [rax + rdx*8]
 	pop rax
