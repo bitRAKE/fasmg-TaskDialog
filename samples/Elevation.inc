@@ -11,7 +11,7 @@ Elevation_Required_Sample:
 	enter .FRAME,0
 	INIT_MY_TD ; copy default structure
 
-	mov [.cfg.pszWindowTitle],<_R "Elevation Requied Sample">
+	mov [.cfg.pszWindowTitle],<_R "Elevation Required Sample">
 	mov [.cfg.pszContent],<_R "Just a button with a shield ...">
 
 	.btns TD_BUTTONS \
