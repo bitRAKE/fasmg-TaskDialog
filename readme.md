@@ -1,3 +1,5 @@
+Repo has been merged into https://github.com/bitRAKE/fasmg-umbrella.
+
 
 #### TaskDialog - moving beyond the MessageBox.
 
